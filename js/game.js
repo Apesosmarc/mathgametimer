@@ -54,23 +54,14 @@ class Game {
     this.tickTimer();
   }
 
-  debounceTimer() {
-    let timeoutid;
-    return () => {
-      if (timeoutid) {
-        return;
-      }
-      if (!timeoutid) {
-        timeoutid = this.setTimer();
-      }
-    };
-  }
-
   setTimer() {
-    const timer = setInterval((timer) => {
-      console.log("wat");
+    let timer;
+    timer = setInterval(() => {
       if (this.timer === 0) {
+        console.log(timer);
         clearInterval(timer);
+        timer = false;
+        this.tickTimer();
       } else {
         this.timer--;
         this.tickTimer();
@@ -82,10 +73,7 @@ class Game {
 
   tickTimer() {
     if (this.timer === 0) {
-      this.timer = 10;
-      this.handleScore();
-      this.score = 0;
-      this.tickScore();
+      this.cleanup();
     }
 
     timerToDOM(this.timer);
@@ -93,6 +81,17 @@ class Game {
 
   tickScore() {
     scoreToDOM(this.score);
+  }
+
+  cleanup() {
+    this.handleScore();
+    setTimeout(() => {
+      this.score = 0;
+      this.tickScore();
+      this.timer = 10;
+      timerToDOM(this.timer);
+    }, 1000);
+    setTimerFalse();
   }
 }
 

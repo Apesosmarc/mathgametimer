@@ -14,8 +14,7 @@ solutionInput.addEventListener("keyup", (e) => {
   e.preventDefault();
   if (!timer) {
     timer = true;
-    set = game.debounceTimer();
-    set();
+    game.setTimer();
   }
   const input = solutionInput.value;
 
@@ -25,3 +24,7 @@ solutionInput.addEventListener("keyup", (e) => {
 solutionForm.addEventListener("submit", (e) => {
   e.preventDefault();
 });
+
+setTimerFalse = () => {
+  timer = false;
+};
